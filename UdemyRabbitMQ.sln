@@ -29,6 +29,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Subscriber", "Subscriber\Su
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01-ExchangeTypes", "01-ExchangeTypes", "{285E9B6A-CABA-46F3-9A96-FD19A21C1474}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "03-WatermarkExample", "03-WatermarkExample", "{F031E65D-BFC6-4D73-9A21-F6C7B633F016}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UdemyRabbitMQWeb.Watermark", "UdemyRabbitMQWeb.Watermark\UdemyRabbitMQWeb.Watermark.csproj", "{36E6209E-E592-45EB-BA9A-258843C8CBA3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -79,6 +83,10 @@ Global
 		{F4C7EB26-DBFA-4867-B0C4-0172463956F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4C7EB26-DBFA-4867-B0C4-0172463956F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4C7EB26-DBFA-4867-B0C4-0172463956F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36E6209E-E592-45EB-BA9A-258843C8CBA3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36E6209E-E592-45EB-BA9A-258843C8CBA3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36E6209E-E592-45EB-BA9A-258843C8CBA3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36E6209E-E592-45EB-BA9A-258843C8CBA3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -95,6 +103,7 @@ Global
 		{65797574-9CF6-401A-86F7-5BD6B514E2D5} = {285E9B6A-CABA-46F3-9A96-FD19A21C1474}
 		{67539A0A-E5A7-400A-9BFE-A81A2EDC2BCB} = {285E9B6A-CABA-46F3-9A96-FD19A21C1474}
 		{F4C7EB26-DBFA-4867-B0C4-0172463956F3} = {F8306E81-60E5-4FEF-9144-2438427937E6}
+		{36E6209E-E592-45EB-BA9A-258843C8CBA3} = {F031E65D-BFC6-4D73-9A21-F6C7B633F016}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1543EDD3-D751-4B6A-AC92-934B902BD61A}
