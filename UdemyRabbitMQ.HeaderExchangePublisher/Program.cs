@@ -8,7 +8,6 @@ namespace UdemyRabbitMQ.HeaderExchangePublisher
 	{
 		static void Main(string[] args)
 		{
-			
 				var factory = new ConnectionFactory();
 				factory.Uri = new Uri("amqps://chgkpvyr:KkEiat6wFkGRT67kXSf2mbSlcfuuopXI@cow.rmq2.cloudamqp.com/chgkpvyr");
 
@@ -30,7 +29,6 @@ namespace UdemyRabbitMQ.HeaderExchangePublisher
 				channel.BasicPublish("header-exchange", string.Empty, properties, Encoding.UTF8.GetBytes("Header mesajim"));
 				Console.WriteLine("Mesaj gönderilmiştir");
 				Console.ReadLine();
-
 		}
 	}
 }
