@@ -24,7 +24,7 @@ namespace UdemyRabbitMQ.publisher
 
 
 			//Exchange oluşturuyoruz...
-			channel.ExchangeDeclare("logs-fanout", durable: true, type: ExchangeType.Fanout);
+			channel.ExchangeDeclare("logs-fanout", durable: true, type: ExchangeType.Direct);
 
 
 			//her döngüde burdaki değeri rabbite gönderiyoruz.
