@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using RabbitMQ.Client;
 using UdemyRabbitMQWeb.ExcelCreate.Models;
+using UdemyRabbitMQWeb.ExcelCreate.Services;
 
 namespace UdemyRabbitMQWeb.ExcelCreate
 {
@@ -9,9 +11,11 @@ namespace UdemyRabbitMQWeb.ExcelCreate
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            
-            // Add services to the container.
 
+            // Add services to the container.
+            //BackgroundService Consumer Received içerisinde asenkron bir methot kullandýðýmýz için DispatchConsumersAsync=true olarak ayarlandý.
+            builder.Services.AddSingleton(sp => new ConnectionFactory() { Uri = new Uri(builder.Configuration.GetConnectionString("RabbitMQ")), DispatchConsumersAsync = true });
+            builder.Services.AddSingleton<RabbitMQClientService>();
             //sql baðlantýsýný gerçekleþtiriyoruz.
             builder.Services.AddDbContext<AppDbContext>(options =>
             {
