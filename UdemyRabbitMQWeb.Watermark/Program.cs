@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using RabbitMQ.Client;
+using UdemyRabbitMQWeb.Watermark.BackgroundServices;
 using UdemyRabbitMQWeb.Watermark.Models;
 using UdemyRabbitMQWeb.Watermark.Services;
 
@@ -13,7 +14,8 @@ namespace UdemyRabbitMQWeb.Watermark
 
 			// Add services to the container.
 			builder.Services.AddControllersWithViews();
-			builder.Services.AddSingleton(sp => new ConnectionFactory() { Uri = new Uri(builder.Configuration.GetConnectionString("RabbitMQ"))});
+            //BackgroundService Consumer Received içerisinde asenkron bir methot kullandýðýmýz için DispatchConsumersAsync=true olarak ayarlandý.
+            builder.Services.AddSingleton(sp => new ConnectionFactory() { Uri = new Uri(builder.Configuration.GetConnectionString("RabbitMQ")),DispatchConsumersAsync=true});
 			builder.Services.AddSingleton<RabbitMQClientService>();
 			builder.Services.AddSingleton<RabbitMQPublisher>();
 	
@@ -21,6 +23,7 @@ namespace UdemyRabbitMQWeb.Watermark
 			{
 				options.UseInMemoryDatabase(databaseName: "productDb");
 			});
+			builder.Services.AddHostedService<ImageWatermarkProcessBackgroundService>();
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.
