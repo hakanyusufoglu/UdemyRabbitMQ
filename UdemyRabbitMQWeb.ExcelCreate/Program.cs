@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using RabbitMQ.Client;
+using UdemyRabbitMQWeb.ExcelCreate.Hubs;
 using UdemyRabbitMQWeb.ExcelCreate.Models;
 using UdemyRabbitMQWeb.ExcelCreate.Services;
 
@@ -29,7 +30,7 @@ namespace UdemyRabbitMQWeb.ExcelCreate
                 options.User.RequireUniqueEmail= true;
             }).AddEntityFrameworkStores<AppDbContext>();
             builder.Services.AddControllersWithViews();
-            
+            builder.Services.AddSignalR();
             var app = builder.Build();
 
             using(var scope=app.Services.CreateScope())
@@ -75,7 +76,7 @@ namespace UdemyRabbitMQWeb.ExcelCreate
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");
-
+            app.MapHub<MyHub>("/MyHub"); //bunun ile signalr ile iletiþime geçilecek
             app.Run();
         }
     }

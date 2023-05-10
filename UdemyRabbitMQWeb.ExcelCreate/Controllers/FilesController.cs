@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
+using UdemyRabbitMQWeb.ExcelCreate.Hubs;
 using UdemyRabbitMQWeb.ExcelCreate.Models;
 
 namespace UdemyRabbitMQWeb.ExcelCreate.Controllers
@@ -9,10 +11,12 @@ namespace UdemyRabbitMQWeb.ExcelCreate.Controllers
     public class FilesController : ControllerBase
     {
         private readonly AppDbContext _context;
+        private readonly IHubContext<MyHub> _hubContext;
 
-        public FilesController(AppDbContext context)
+        public FilesController(AppDbContext context, IHubContext<MyHub> hubContext)
         {
             _context = context;
+            _hubContext = hubContext;
         }
 
         //WorkerService'den gelecek, excel dosyası, hangi file?
@@ -35,7 +39,11 @@ namespace UdemyRabbitMQWeb.ExcelCreate.Controllers
             userFile.FilePath = filePath;
             userFile.FileStatus = FileStatus.Completed;
             await _context.SaveChangesAsync();
+
             //SignalR notification oluşturulacak
+
+            //Bilgiyi hangi kullanıcı oluşturduysa ona göndereceğiz.
+            await _hubContext.Clients.User(userFile.UserId).SendAsync("CompletedFile"); //Layoutta dinleme işlemi gerçekleştirilecek. Çünkü ayrı bir sayfaya geçtiğinde bile ben notification'ı görmek istiyorum.
             return Ok();
         }
     }
