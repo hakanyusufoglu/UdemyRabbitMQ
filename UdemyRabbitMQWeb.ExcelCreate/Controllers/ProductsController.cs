@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using UdemyRabbitMQWeb.ExcelCreate.Models;
+using UdemyRabbitMQWeb.ExcelCreate.Services;
 
 namespace UdemyRabbitMQWeb.ExcelCreate.Controllers
 {
@@ -11,11 +12,12 @@ namespace UdemyRabbitMQWeb.ExcelCreate.Controllers
     {
         private readonly AppDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-
-        public ProductsController(AppDbContext context, UserManager<IdentityUser> userManager)
+        private readonly RabbitMQPublisher _rabbitMQPublisher;
+        public ProductsController(AppDbContext context, UserManager<IdentityUser> userManager, RabbitMQPublisher rabbitMQPublisher)
         {
             _context = context;
             _userManager = userManager;
+            _rabbitMQPublisher = rabbitMQPublisher;
         }
 
         public IActionResult Index()
@@ -36,7 +38,9 @@ namespace UdemyRabbitMQWeb.ExcelCreate.Controllers
             };
             await _context.UserFiles.AddAsync(userFile);
             await _context.SaveChangesAsync();
-            //bu satırda rabbitMQ'ya mesaj gönder
+
+            //memoryde tutulduğu için kayıt edildikten sonra ilgili modelin Id'sini alıyor.
+            _rabbitMQPublisher.Publish(new Shared.CreateExcelMessage { FileId=userFile.Id});
            
 
             //Bir Requestten diğer requesta TempData ile taşınmaktadır. Aslında cookie'da tutmaktadır.

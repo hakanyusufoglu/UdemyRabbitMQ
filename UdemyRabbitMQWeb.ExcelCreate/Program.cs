@@ -15,6 +15,7 @@ namespace UdemyRabbitMQWeb.ExcelCreate
             // Add services to the container.
             //BackgroundService Consumer Received içerisinde asenkron bir methot kullandýðýmýz için DispatchConsumersAsync=true olarak ayarlandý.
             builder.Services.AddSingleton(sp => new ConnectionFactory() { Uri = new Uri(builder.Configuration.GetConnectionString("RabbitMQ")), DispatchConsumersAsync = true });
+            builder.Services.AddSingleton<RabbitMQPublisher>();
             builder.Services.AddSingleton<RabbitMQClientService>();
             //sql baðlantýsýný gerçekleþtiriyoruz.
             builder.Services.AddDbContext<AppDbContext>(options =>
